@@ -11,9 +11,9 @@ namespace Extensions
             (this string input, string pattern,
             RegexOptions options = RegexOptions.IgnoreCase | RegexOptions.Multiline)
         {
-            var result = false;
+            var result = string.IsNullOrWhiteSpace(pattern);
 
-            if (!input.IsEmpty() && !pattern.IsEmpty())
+            if (!string.IsNullOrWhiteSpace(input) && !string.IsNullOrWhiteSpace(pattern))
             {
                 var fullMatchPattern = pattern.GetFullmatchPattern();
 
@@ -30,8 +30,8 @@ namespace Extensions
             (this string input, string pattern,
             RegexOptions options = RegexOptions.IgnoreCase | RegexOptions.Multiline)
         {
-            var result = (input?.IsEmpty() ?? true)
-                || (pattern?.IsEmpty() ?? true)
+            var result = string.IsNullOrWhiteSpace(input)
+                || string.IsNullOrWhiteSpace(pattern)
                 || input.IsMatch(
                     pattern: pattern,
                     options: options);
@@ -47,7 +47,7 @@ namespace Extensions
         {
             var result = string.Empty;
 
-            if (!input.IsEmpty())
+            if (!string.IsNullOrWhiteSpace(input))
             {
                 var split = input.Split(
                     separator: new char[] { '\n', '\r' },

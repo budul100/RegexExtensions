@@ -9,8 +9,4 @@
     <None Remove=".gitignore" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\StringExtensions\StringExtensions.csproj" />
-  </ItemGroup>
-
 </Project>
