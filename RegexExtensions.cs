@@ -7,8 +7,25 @@ namespace Extensions
     {
         #region Public Methods
 
-        public static bool IsMatch
-            (this string input, string pattern,
+        public static bool IsMatch(this string input, string pattern,
+            RegexOptions options = RegexOptions.IgnoreCase | RegexOptions.Multiline)
+        {
+            var result = false;
+
+            if (!string.IsNullOrWhiteSpace(input) && !string.IsNullOrWhiteSpace(pattern))
+            {
+                var fullMatchPattern = pattern.GetFullmatchPattern();
+
+                result = Regex.IsMatch(
+                    input: input,
+                    pattern: fullMatchPattern,
+                    options: options);
+            }
+
+            return result;
+        }
+
+        public static bool IsMatchOrEmpty(this string input, string pattern,
             RegexOptions options = RegexOptions.IgnoreCase | RegexOptions.Multiline)
         {
             var result = string.IsNullOrWhiteSpace(pattern);
@@ -26,13 +43,12 @@ namespace Extensions
             return result;
         }
 
-        public static bool IsMatchOrDefault
-            (this string input, string pattern,
+        public static bool IsMatchOrEmptyOrDefault(this string input, string pattern,
             RegexOptions options = RegexOptions.IgnoreCase | RegexOptions.Multiline)
         {
             var result = string.IsNullOrWhiteSpace(input)
                 || string.IsNullOrWhiteSpace(pattern)
-                || input.IsMatch(
+                || input.IsMatchOrEmpty(
                     pattern: pattern,
                     options: options);
 
