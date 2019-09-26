@@ -48,7 +48,7 @@ namespace Extensions
         {
             var result = string.IsNullOrWhiteSpace(input)
                 || string.IsNullOrWhiteSpace(pattern)
-                || input.IsMatchOrEmpty(
+                || input.IsMatch(
                     pattern: pattern,
                     options: options);
 
