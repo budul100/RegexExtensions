@@ -43,7 +43,7 @@ namespace Extensions
             return result;
         }
 
-        public static bool IsMatchOrEmptyOrDefault(this string input, string pattern,
+        public static bool IsMatchOrEmptyOrIgnored(this string input, string pattern,
             RegexOptions options = RegexOptions.IgnoreCase | RegexOptions.Multiline)
         {
             var result = string.IsNullOrWhiteSpace(input)
