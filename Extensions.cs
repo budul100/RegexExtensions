@@ -1,11 +1,42 @@
 ﻿using System;
 using System.Text.RegularExpressions;
 
-namespace Extensions
+namespace RegexExtensions
 {
-    public static class RegexExtensions
+    public static class Extensions
     {
+        #region Private Fields
+
+        private const string NewLineSeparators = "\r\n";
+        private const string RegexOr = "|";
+
+        #endregion Private Fields
+
         #region Public Methods
+
+        public static string GetFullmatchPattern(this string input)
+        {
+            var result = input ?? string.Empty;
+
+            if (!string.IsNullOrWhiteSpace(input))
+            {
+                var pattern = input;
+
+                if (input.Contains(NewLineSeparators))
+                {
+                    var splits = input.Split(
+                        separator: NewLineSeparators.ToCharArray(),
+                        options: StringSplitOptions.RemoveEmptyEntries);
+                    pattern = string.Join(
+                        separator: RegexOr,
+                        value: splits);
+                }
+
+                result = $@"\A(?:{pattern})\z";
+            }
+
+            return result;
+        }
 
         public static bool IsMatch(this string input, string pattern,
             RegexOptions options = RegexOptions.IgnoreCase | RegexOptions.Multiline)
@@ -25,7 +56,7 @@ namespace Extensions
             return result;
         }
 
-        public static bool IsMatchOrEmpty(this string input, string pattern,
+        public static bool IsMatchOrEmptyPattern(this string input, string pattern,
             RegexOptions options = RegexOptions.IgnoreCase | RegexOptions.Multiline)
         {
             var result = string.IsNullOrWhiteSpace(pattern);
@@ -43,7 +74,7 @@ namespace Extensions
             return result;
         }
 
-        public static bool IsMatchOrEmptyOrIgnored(this string input, string pattern,
+        public static bool IsMatchOrEmptyPatternOrEmptyValue(this string input, string pattern,
             RegexOptions options = RegexOptions.IgnoreCase | RegexOptions.Multiline)
         {
             var result = string.IsNullOrWhiteSpace(input)
@@ -56,26 +87,5 @@ namespace Extensions
         }
 
         #endregion Public Methods
-
-        #region Private Methods
-
-        private static string GetFullmatchPattern(this string input)
-        {
-            var result = string.Empty;
-
-            if (!string.IsNullOrWhiteSpace(input))
-            {
-                var split = input.Split(
-                    separator: new char[] { '\n', '\r' },
-                    options: StringSplitOptions.RemoveEmptyEntries);
-                var splitOr = string.Join("|", split);
-
-                result = $@"\A(?:{splitOr})\z";
-            }
-
-            return result;
-        }
-
-        #endregion Private Methods
     }
 }
