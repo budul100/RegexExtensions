@@ -59,17 +59,10 @@ namespace RegexExtensions
         public static bool IsMatchOrEmptyPattern(this string input, string pattern,
             RegexOptions options = RegexOptions.IgnoreCase | RegexOptions.Multiline)
         {
-            var result = string.IsNullOrWhiteSpace(pattern);
-
-            if (!string.IsNullOrWhiteSpace(input) && !string.IsNullOrWhiteSpace(pattern))
-            {
-                var fullMatchPattern = pattern.GetFullmatchPattern();
-
-                result = Regex.IsMatch(
-                    input: input,
-                    pattern: fullMatchPattern,
+            var result = string.IsNullOrWhiteSpace(pattern)
+                || input.IsMatch(
+                    pattern: pattern,
                     options: options);
-            }
 
             return result;
         }
