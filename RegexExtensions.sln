@@ -5,7 +5,12 @@ VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegexExtensions", "RegexExtensions\RegexExtensions.csproj", "{175975E1-7387-4FCD-A0F6-6493D4C9E838}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegexExtensionsTest", "RegexExtensionsTests\RegexExtensionsTests.csproj", "{062D024E-3546-455A-AA12-61501BC18213}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RegexExtensionsTests", "RegexExtensionsTests\RegexExtensionsTests.csproj", "{062D024E-3546-455A-AA12-61501BC18213}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Additionals", "Additionals", "{B3CCD556-7866-4C2C-8E10-D456E11D9889}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
