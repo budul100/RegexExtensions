@@ -9,6 +9,7 @@ namespace RegexExtensions
 
         private const string NewLineSeparators = "\r\n";
         private const string RegexOr = "|";
+        private static readonly char[] newLineSeparators = NewLineSeparators.ToCharArray();
 
         #endregion Private Fields
 
@@ -22,11 +23,12 @@ namespace RegexExtensions
             {
                 var pattern = input;
 
-                if (input.Contains(NewLineSeparators))
+                var splits = input.Split(
+                    separator: newLineSeparators,
+                    options: StringSplitOptions.RemoveEmptyEntries);
+
+                if (splits.Length > 1)
                 {
-                    var splits = input.Split(
-                        separator: NewLineSeparators.ToCharArray(),
-                        options: StringSplitOptions.RemoveEmptyEntries);
                     pattern = string.Join(
                         separator: RegexOr,
                         value: splits);

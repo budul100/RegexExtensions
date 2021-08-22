@@ -8,6 +8,24 @@ namespace RegexExtensionsTest
         #region Public Methods
 
         [Test]
+        public void FullMatchPatternWithBreak()
+        {
+            var pattern = "Buss Nordlandsbanen\nBuss Saltenpendelen";
+            var result = pattern.GetFullmatchPattern();
+
+            Assert.True(result.Contains("|"));
+        }
+
+        [Test]
+        public void FullMatchPatternWithoutBreak()
+        {
+            var pattern = "Buss Nordlandsbanen";
+            var result = pattern.GetFullmatchPattern();
+
+            Assert.False(result.Contains("|"));
+        }
+
+        [Test]
         public void IsMatchFalse()
         {
             var text = "abc";
