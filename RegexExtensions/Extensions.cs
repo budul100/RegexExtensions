@@ -22,6 +22,7 @@ namespace RegexExtensions
             var result = string.Empty;
 
             var relevants = inputs?
+                .Where(i => !string.IsNullOrWhiteSpace(i))
                 .SelectMany(i => i.Split(newLineSeparators))
                 .Where(s => !string.IsNullOrWhiteSpace(s))
                 .Distinct().ToArray();

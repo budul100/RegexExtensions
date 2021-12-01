@@ -8,6 +8,14 @@ namespace RegexExtensionsTest
         #region Public Methods
 
         [Test]
+        public void FullMatchPatternEmpty()
+        {
+            const string pattern = default;
+
+            pattern.GetFullmatchPattern();
+        }
+
+        [Test]
         public void FullMatchPatternMultiple()
         {
             var pattern = new string[] { "Buss Nordlandsbanen\nBuss Saltenpendelen", "Buss Nordlandsbanen" };
