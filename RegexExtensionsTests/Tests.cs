@@ -8,18 +8,40 @@ namespace RegexExtensionsTest
         #region Public Methods
 
         [Test]
-        public void FullMatchPatternWithBreak()
+        public void FullMatchPatternMultiple()
         {
-            var pattern = "Buss Nordlandsbanen\nBuss Saltenpendelen";
+            var pattern = new string[] { "Buss Nordlandsbanen\nBuss Saltenpendelen", "Buss Nordlandsbanen" };
+
             var result = pattern.GetFullmatchPattern();
 
             Assert.True(result.Contains("|"));
         }
 
         [Test]
-        public void FullMatchPatternWithoutBreak()
+        public void FullMatchPatternMultipleDuplicates()
         {
-            var pattern = "Buss Nordlandsbanen";
+            var pattern = new string[] { "Buss Nordlandsbanen", "Buss Nordlandsbanen" };
+
+            var result = pattern.GetFullmatchPattern();
+
+            Assert.False(result.Contains("|"));
+        }
+
+        [Test]
+        public void FullMatchPatternSingleWithBreak()
+        {
+            const string pattern = "Buss Nordlandsbanen\nBuss Saltenpendelen";
+
+            var result = pattern.GetFullmatchPattern();
+
+            Assert.True(result.Contains("|"));
+        }
+
+        [Test]
+        public void FullMatchPatternSingleWithoutBreak()
+        {
+            const string pattern = "Buss Nordlandsbanen";
+
             var result = pattern.GetFullmatchPattern();
 
             Assert.False(result.Contains("|"));
@@ -28,8 +50,9 @@ namespace RegexExtensionsTest
         [Test]
         public void IsMatchFalse()
         {
-            var text = "abc";
-            var pattern = ".{2}";
+            const string text = "abc";
+            const string pattern = ".{2}";
+
             var result = text.IsMatch(pattern);
 
             Assert.IsFalse(result);
@@ -38,8 +61,9 @@ namespace RegexExtensionsTest
         [Test]
         public void IsMatchOrEmptyPatternBoth()
         {
-            var text = default(string);
-            var pattern = default(string);
+            const string text = default;
+            const string pattern = default;
+
             var result = text.IsMatchOrEmptyPattern(pattern);
 
             Assert.IsTrue(result);
@@ -48,8 +72,9 @@ namespace RegexExtensionsTest
         [Test]
         public void IsMatchOrEmptyPatternOrEmptyValueBoth()
         {
-            var text = default(string);
-            var pattern = default(string);
+            const string text = default;
+            const string pattern = default;
+
             var result = text.IsMatchOrEmptyPatternOrEmptyValue(pattern);
 
             Assert.IsTrue(result);
@@ -58,8 +83,9 @@ namespace RegexExtensionsTest
         [Test]
         public void IsMatchOrEmptyPatternOrEmptyValuePattern()
         {
-            var text = "abc";
-            var pattern = default(string);
+            const string text = "abc";
+            const string pattern = default;
+
             var result = text.IsMatchOrEmptyPatternOrEmptyValue(pattern);
 
             Assert.IsTrue(result);
@@ -68,8 +94,9 @@ namespace RegexExtensionsTest
         [Test]
         public void IsMatchOrEmptyPatternOrEmptyValueText()
         {
-            var text = default(string);
-            var pattern = ".{2}";
+            const string text = default;
+            const string pattern = ".{2}";
+
             var result = text.IsMatchOrEmptyPatternOrEmptyValue(pattern);
 
             Assert.IsTrue(result);
@@ -78,8 +105,9 @@ namespace RegexExtensionsTest
         [Test]
         public void IsMatchOrEmptyPatternPattern()
         {
-            var text = "abc";
-            var pattern = default(string);
+            const string text = "abc";
+            const string pattern = default;
+
             var result = text.IsMatchOrEmptyPattern(pattern);
 
             Assert.IsTrue(result);
@@ -88,8 +116,9 @@ namespace RegexExtensionsTest
         [Test]
         public void IsMatchOrEmptyPatternText()
         {
-            var text = default(string);
-            var pattern = ".{2}";
+            const string text = default;
+            const string pattern = ".{2}";
+
             var result = text.IsMatchOrEmptyPattern(pattern);
 
             Assert.IsFalse(result);
@@ -98,8 +127,9 @@ namespace RegexExtensionsTest
         [Test]
         public void IsMatchTrue()
         {
-            var text = "abc";
-            var pattern = ".{3}";
+            const string text = "abc";
+            const string pattern = ".{3}";
+
             var result = text.IsMatch(pattern);
 
             Assert.IsTrue(result);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace RegexExtensions
@@ -9,33 +10,48 @@ namespace RegexExtensions
 
         private const string NewLineSeparators = "\r\n";
         private const string RegexOr = "|";
+
         private static readonly char[] newLineSeparators = NewLineSeparators.ToCharArray();
 
         #endregion Private Fields
 
         #region Public Methods
 
-        public static string GetFullmatchPattern(this string input)
+        public static string GetFullmatchPattern(this IEnumerable<string> inputs)
         {
-            var result = input ?? string.Empty;
+            var result = string.Empty;
 
-            if (!string.IsNullOrWhiteSpace(input))
+            var relevants = inputs?
+                .SelectMany(i => i.Split(newLineSeparators))
+                .Where(s => !string.IsNullOrWhiteSpace(s))
+                .Distinct().ToArray();
+
+            if (relevants?.Any() ?? false)
             {
-                var pattern = input;
+                var pattern = default(string);
 
-                var splits = input.Split(
-                    separator: newLineSeparators,
-                    options: StringSplitOptions.RemoveEmptyEntries);
-
-                if (splits.Length > 1)
+                if (relevants.Length == 1)
+                {
+                    pattern = relevants.Single();
+                }
+                else
                 {
                     pattern = string.Join(
                         separator: RegexOr,
-                        value: splits);
+                        value: relevants);
                 }
 
                 result = $@"\A(?:{pattern})\z";
             }
+
+            return result;
+        }
+
+        public static string GetFullmatchPattern(this string input)
+        {
+            var inputs = new string[] { input };
+
+            var result = inputs.GetFullmatchPattern();
 
             return result;
         }
