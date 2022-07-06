@@ -22,7 +22,7 @@ namespace RegexExtensionsTest
 
             var result = pattern.GetFullmatchPattern();
 
-            Assert.True(result.Contains("|"));
+            Assert.True(result.Contains('|'));
         }
 
         [Test]
@@ -32,7 +32,7 @@ namespace RegexExtensionsTest
 
             var result = pattern.GetFullmatchPattern();
 
-            Assert.False(result.Contains("|"));
+            Assert.False(result.Contains('|'));
         }
 
         [Test]
@@ -42,7 +42,7 @@ namespace RegexExtensionsTest
 
             var result = pattern.GetFullmatchPattern();
 
-            Assert.True(result.Contains("|"));
+            Assert.True(result.Contains('|'));
         }
 
         [Test]
@@ -52,7 +52,7 @@ namespace RegexExtensionsTest
 
             var result = pattern.GetFullmatchPattern();
 
-            Assert.False(result.Contains("|"));
+            Assert.False(result.Contains('|'));
         }
 
         [Test]
